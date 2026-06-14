@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madhav Ojha | Tech Founder & Innovator</title>
+    <meta name="description" content="Portfolio of Madhav Ojha - Student at Nalanda College of Engineering.">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <style>
+        html { scroll-behavior: smooth; background-color: #030712; }
+        body { -webkit-font-smoothing: antialiased; }
+        #custom-cursor { mix-blend-mode: difference; transition: transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease; }
+        .nav-scrolled { background-color: rgba(3, 7, 18, 0.4); border-color: rgba(255, 255, 255, 0.04); backdrop-filter: blur(24px) saturate(180%); }
+        .particle-element { position: absolute; border-radius: 50%; background: linear-gradient(135deg, #00D2FF 0%, #0047FF 100%); pointer-events: none; will-change: transform, opacity; }
+        .project-card { transform-style: preserve-3d; perspective: 1000px; will-change: transform; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #030712; }
+        ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00D2FF; }
+        
+        /* CSS Fade out class backup animation rule */
+        .loader-hide {
+            opacity: 0 !important;
+            pointer-events: none !important;
+            transition: opacity 0.6s ease-out !important;
+        }
+    </style>
+</head>
+<body class="bg-[#030712] text-white font-['Plus_Jakarta_Sans'] overflow-x-hidden antialiased selection:bg-[#10B981] selection:text-white">
+
+    <div id="custom-cursor" class="pointer-events-none fixed top-0 left-0 w-8 h-8 rounded-full border border-[#00D2FF] z-[9999] -translate-x-1/2 -translate-y-1/2 opacity-0 md:block hidden"></div>
+    <div id="cursor-glow" class="pointer-events-none fixed top-0 left-0 w-[400px] h-[400px] bg-radial from-[#0047FF]/15 to-transparent rounded-full z-[9998] -translate-x-1/2 -translate-y-1/2 opacity-0 md:block hidden"></div>
+
+    <div id="preloader" class="fixed inset-0 bg-[#030712] z-[10000] flex flex-col justify-center items-center" style="transition: opacity 0.5s ease;">
+        <div class="relative flex flex-col items-center">
+            <div class="w-16 h-16 border-4 border-t-[#00D2FF] border-r-[#10B981] border-b-transparent border-l-transparent rounded-full animate-spin"></div>
+            <div id="loader-text" class="mt-6 text-xl font-bold tracking-[0.2em] bg-gradient-to-r from-[#00D2FF] to-[#10B981] bg-clip-text text-transparent">
+                MADHAV OJHA
+            </div>
+            <div class="text-xs text-gray-500 tracking-widest mt-1">INITIALIZING SYSTEMS</div>
+        </div>
+    </div>
+
+    <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-[#0047FF] via-[#00D2FF] to-[#10B981] z-[9999] w-0 transition-all duration-100"></div>
+
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold tracking-wider bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent group">
+                MO<span class="text-[#00D2FF] group-hover:text-[#10B981] transition-colors duration-300">.</span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+                <a href="#about" class="hover:text-white transition-colors duration-200">About</a>
+                <a href="#projects" class="hover:text-white transition-colors duration-200">Projects</a>
+                <a href="#skills" class="hover:text-white transition-colors duration-200">Expertise</a>
+                <a href="#vision" class="hover:text-white transition-colors duration-200">Vision</a>
+                <a href="#contact" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#0047FF] to-[#00D2FF] hover:shadow-[0_0_20px_rgba(0,210,255,0.4)] border border-transparent text-white font-medium transition-all duration-300 shadow-lg">Let's Build</a>
+            </div>
+
+            <button id="menu-toggle" aria-label="Toggle mobile menu" class="md:hidden flex flex-col justify-between w-6 h-4 z-50 relative">
+                <span class="w-full h-[2px] bg-white rounded"></span>
+                <span class="w-full h-[2px] bg-white rounded"></span>
+                <span class="w-full h-[2px] bg-white rounded"></span>
+            </button>
+        </div>
+        
+        <div id="mobile-menu" class="fixed inset-0 bg-[#030712]/95 backdrop-blur-xl z-40 flex flex-col justify-center items-center gap-8 text-2xl font-semibold translate-x-full transition-transform duration-500">
+            <a href="#about" class="mobile-link hover:text-[#00D2FF]">About</a>
+            <a href="#projects" class="mobile-link hover:text-[#00D2FF]">Projects</a>
+            <a href="#skills" class="mobile-link hover:text-[#00D2FF]">Expertise</a>
+            <a href="#vision" class="mobile-link hover:text-[#00D2FF]">Vision</a>
+            <a href="#contact" class="mobile-link px-6 py-3 rounded-full bg-gradient-to-r from-[#0047FF] to-[#10B981] text-white text-lg">Contact Me</a>
+        </div>
+    </nav>
+
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#0047FF]/10 rounded-full blur-[120px] animate-pulse"></div>
+            <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#10B981]/10 rounded-full blur-[120px] animate-pulse delay-2000"></div>
+            <div id="particles-container" class="absolute inset-0 opacity-40"></div>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-6 z-10 text-center relative">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-6 opacity-0 translate-y-4 hero-fade">
+                <span class="w-2 h-2 rounded-full bg-[#10B981] animate-ping"></span>
+                <span class="text-xs font-semibold tracking-wider text-gray-300 uppercase">Nalanda College of Engineering</span>
+            </div>
+
+            <h1 class="text-4xl md:text-7xl font-bold tracking-tight mb-6 opacity-0 translate-y-4 hero-fade">
+                Building Technology for <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#0047FF] to-[#10B981]">Farmers, Businesses & Communities</span>
+            </h1>
+
+            <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed opacity-0 translate-y-4 hero-fade">
+                Hi, I'm <span class="text-white font-semibold">Madhav Ojha</span>. Aeronautical Engineer, Technologist, and Poet. Pitching solutions at <span class="text-[#00D2FF]">Empresio IIT Kharagpur</span>, hackathons like <span class="text-[#10B981]">SIH</span>, and scaling applications that make a difference.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0 translate-y-4 hero-fade">
+                <a href="#projects" class="group relative px-8 py-4 w-full sm:w-auto rounded-full bg-gradient-to-r from-[#0047FF] to-[#00D2FF] font-medium tracking-wide transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,71,255,0.4)] overflow-hidden">
+                    <span class="relative z-10">Explore Projects</span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-[#10B981] to-[#00D2FF] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </a>
+                <a href="https://wa.me/91934194955" target="_blank" class="px-8 py-4 w-full sm:w-auto rounded-full bg-white/5 hover:bg-white/10 border border-white/10 font-medium tracking-wide transition-all duration-300 backdrop-blur-md text-gray-200 hover:text-white flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-[#10B981]"></i> Connect on WhatsApp
+                </a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
+            <span class="text-[10px] tracking-widest text-gray-500 uppercase">Scroll To Explore</span>
+            <div class="w-[2px] h-8 bg-gradient-to-b from-white to-transparent rounded-full animate-bounce"></div>
+        </div>
+    </section>
+
+    <section id="about" class="py-32 relative border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                <div class="lg:col-span-5 relative group opacity-0 scale-95 reveal-element">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-[#0047FF]/20 to-[#10B981]/20 rounded-3xl blur-2xl group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl shadow-2xl overflow-hidden">
+                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-[#0047FF] to-[#10B981] flex items-center justify-center mb-8 shadow-lg overflow-hidden relative group">
+                            <img src="assests/profile.jpg" alt="Madhav Ojha" class="w-full h-full object-cover absolute inset-0 z-10" onerror="this.style.display='none';">
+                            <i class="fa-solid fa-plane-departure text-3xl relative z-0"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-white">Madhav Ojha</h3>
+                        <p class="text-sm text-[#00D2FF] font-medium mb-6">Aeronautical Engineer </p>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            Aeronautical Engineer with a deep passion for aerospace mechanics, aeroplanes, fighter jets, and rocket propulsion systems. Alongside aerospace, I am an active competitor in national tech circuits, focusing on dynamic app development and cloud architectures.
+                        </p>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Beyond equations and code, I am a creative at heart and a poet. I believe in blending the analytical precision of rockets with the rhythmic flow of poetry to craft impactful, holistic solutions.
+                        </p>
+                        <div class="pt-6 border-t border-white/5 flex gap-4">
+                            <a href="https://www.linkedin.com/in/madhav-ojha-a5b8b5340?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="text-gray-400 hover:text-[#00D2FF] transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                            <a href="https://www.instagram.com/buxar__wale?igsh=MXMweWlmMDY3eDU5" target="_blank" class="text-gray-400 hover:text-[#00D2FF] transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                            <a href="https://wa.me/91934194955" target="_blank" class="text-gray-400 hover:text-[#10B981] transition-colors"><i class="fa-brands fa-whatsapp text-xl"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 flex flex-col justify-center">
+                    <span class="text-xs font-semibold tracking-widest text-[#10B981] uppercase mb-3 block">MILESTONES & EXPERIENCE</span>
+                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-8">From Hackathons to Production Deployments.</h2>
+                    <div class="space-y-8 relative before:absolute before:left-3 before:top-2 before:bottom-2 before:w-[1px] before:bg-white/10">
+                        <div class="relative pl-10 opacity-0 translate-x-4 reveal-element">
+                            <div class="absolute left-[7px] top-1.5 w-3 h-3 rounded-full bg-[#00D2FF] ring-4 ring-[#00D2FF]/20"></div>
+                            <h4 class="text-lg font-semibold text-white mb-1">Empresio — IIT Kharagpur</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">Pitched startup frameworks, answering core business architectural constraints, financial planning models, and software execution pipelines.</p>
+                        </div>
+                        <div class="relative pl-10 opacity-0 translate-x-4 reveal-element">
+                            <div class="absolute left-[7px] top-1.5 w-3 h-3 rounded-full bg-[#10B981] ring-4 ring-[#10B981]/20"></div>
+                            <h4 class="text-lg font-semibold text-white mb-1">Smart India Hackathon (SIH) & Major Tracks</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">Collaborated in rapid development sprints solving complex, real-world grassroots problems for ministries and corporate entities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-32 relative bg-[#050B18]/50 border-t border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <span class="text-xs font-semibold tracking-widest text-[#00D2FF] uppercase mb-3 block">PROVEN PLATFORMS</span>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight">The Ecosystem Ventures.</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="project-card group relative bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-md transition-all duration-500 hover:border-[#00D2FF]/40 overflow-hidden flex flex-col justify-between opacity-0 translate-y-8 reveal-element">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 bg-[#0047FF]/20 text-[#00D2FF] border border-[#0047FF]/30 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-wheat-stalk"></i></div>
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400">AI & AgriTech</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-[#00D2FF] transition-colors duration-300">Farm Guardian</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">An intelligent, multi-language AI ecosystem equipping farmers with real-time predictive analytics, crop diagnostics, and modern weather insights.</p>
+                    </div>
+                    <div class="flex items-center gap-4 pt-6 border-t border-white/5">
+                        <a href="#" class="text-xs font-medium inline-flex items-center gap-2 text-white hover:text-[#00D2FF] transition-colors">Live Demo <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+                    </div>
+                </div>
+                <div class="project-card group relative bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-md transition-all duration-500 hover:border-[#10B981]/40 overflow-hidden flex flex-col justify-between opacity-0 translate-y-8 reveal-element">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 bg-[#10B981]/20 text-[#10B981] border border-[#10B981]/30 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-calculator"></i></div>
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400">FinTech</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-[#10B981] transition-colors duration-300">OmniHisab</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Smart business accounting architecture ensuring sub-second ledger entry validation, analytics pipelines, and clear cashflow balance records.</p>
+                    </div>
+                    <div class="flex items-center gap-4 pt-6 border-t border-white/5">
+                        <a href="#" class="text-xs font-medium inline-flex items-center gap-2 text-white hover:text-[#10B981] transition-colors">Live Demo <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+                    </div>
+                </div>
+                <div class="project-card group relative bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-md transition-all duration-500 hover:border-[#00D2FF]/40 overflow-hidden flex flex-col justify-between opacity-0 translate-y-8 reveal-element">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 bg-[#0047FF]/20 text-[#00D2FF] border border-[#0047FF]/30 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-bowl-food"></i></div>
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400">Logistics</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-[#00D2FF] transition-colors duration-300">BhookhMitao</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">A high-throughput food rescue marketplace mapping food surpluses to dynamic local processing centers instantly via geospatial indexing.</p>
+                    </div>
+                    <div class="flex items-center gap-4 pt-6 border-t border-white/5">
+                        <a href="#" class="text-xs font-medium inline-flex items-center gap-2 text-white hover:text-[#00D2FF] transition-colors">Live Demo <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+                    </div>
+                </div>
+                <div class="project-card group relative bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-md transition-all duration-500 hover:border-[#10B981]/40 overflow-hidden flex flex-col justify-between opacity-0 translate-y-8 reveal-element">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 bg-[#10B981]/20 text-[#10B981] border border-[#10B981]/30 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-gifts"></i></div>
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400">Marketplace</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-[#10B981] transition-colors duration-300">ByaahBazaar</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">A complete wedding logistics platform managing vendor networks, client requirements, and cross-channel workflows simultaneously.</p>
+                    </div>
+                    <div class="flex items-center gap-4 pt-6 border-t border-white/5">
+                        <a href="#" class="text-xs font-medium inline-flex items-center gap-2 text-white hover:text-[#10B981] transition-colors">Live Demo <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+                    </div>
+                </div>
+
+                <!-- New Projects -->
+                <div class="project-card group relative bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-md transition-all duration-500 hover:border-[#00D2FF]/40 overflow-hidden flex flex-col justify-between opacity-0 translate-y-8 reveal-element">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 bg-[#0047FF]/20 text-[#00D2FF] border border-[#0047FF]/30 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-leaf"></i></div>
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400">R&D / AgriTech</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-[#00D2FF] transition-colors duration-300">Produce Shelf-Life Enhancer</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Real-life product development focusing on innovative solutions to significantly enhance the shelf life of fresh vegetables and fruits.</p>
+                    </div>
+                    <div class="flex items-center gap-4 pt-6 border-t border-white/5">
+                        <a href="#" class="text-xs font-medium inline-flex items-center gap-2 text-white hover:text-[#00D2FF] transition-colors">Live Demo <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+                    </div>
+                </div>
+
+                <div class="project-card group relative bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-md transition-all duration-500 hover:border-[#10B981]/40 overflow-hidden flex flex-col justify-between opacity-0 translate-y-8 reveal-element">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 bg-[#10B981]/20 text-[#10B981] border border-[#10B981]/30 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-check-to-slot"></i></div>
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400">CivicTech</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-[#10B981] transition-colors duration-300">Bharat Uday</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">A comprehensive end-to-end election management platform handling campaigns, analytics, and all operational election workflows.</p>
+                    </div>
+                    <div class="flex items-center gap-4 pt-6 border-t border-white/5">
+                        <a href="#" class="text-xs font-medium inline-flex items-center gap-2 text-white hover:text-[#10B981] transition-colors">Live Demo <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+                    </div>
+                </div>
+
+                <div class="project-card group relative bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-md transition-all duration-500 hover:border-[#00D2FF]/40 overflow-hidden flex flex-col justify-between opacity-0 translate-y-8 reveal-element">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 bg-[#0047FF]/20 text-[#00D2FF] border border-[#0047FF]/30 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400">FinTech</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-[#00D2FF] transition-colors duration-300">Tax Bazaar</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">A dynamic taxation and financial portal designed to simplify tax filings, consultancy, and regulatory compliance for businesses.</p>
+                    </div>
+                    <div class="flex items-center gap-4 pt-6 border-t border-white/5">
+                        <a href="#" class="text-xs font-medium inline-flex items-center gap-2 text-white hover:text-[#00D2FF] transition-colors">Live Demo <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+                    </div>
+                </div>
+
+                <div class="project-card group relative bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-md transition-all duration-500 hover:border-[#10B981]/40 overflow-hidden flex flex-col justify-between opacity-0 translate-y-8 reveal-element">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 bg-[#10B981]/20 text-[#10B981] border border-[#10B981]/30 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400">HealthTech</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-[#10B981] transition-colors duration-300">NutriCure</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">A digital healthcare and nutrition platform offering personalized dietary solutions, wellness tracking, and medical consultancy.</p>
+                    </div>
+                    <div class="flex items-center gap-4 pt-6 border-t border-white/5">
+                        <a href="#" class="text-xs font-medium inline-flex items-center gap-2 text-white hover:text-[#10B981] transition-colors">Live Demo <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                <div class="lg:col-span-4 sticky top-32">
+                    <span class="text-xs font-semibold tracking-widest text-[#10B981] uppercase mb-3 block">CORE COMPETENCIES</span>
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-6">The Technology Infrastructure.</h2>
+                    <div class="flex gap-6 mt-8">
+                        <div class="text-center">
+                            <div class="w-16 h-16 rounded-full border-4 border-[#00D2FF] flex items-center justify-center text-sm font-bold bg-white/5 mb-2">95%</div>
+                            <span class="text-[10px] uppercase text-gray-400 tracking-wider">Architecture</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8 space-y-8">
+                    <!-- Programming Languages -->
+                    <div>
+                        <div class="flex justify-between text-sm mb-2 font-medium">
+                            <span class="text-white">Programming Languages (C++, Java, Kotlin)</span>
+                            <span class="text-gray-400">95%</span>
+                        </div>
+                        <div class="w-full h-2 bg-white/5 border border-white/10 rounded-full overflow-hidden">
+                            <div class="skill-progress-bar h-full bg-gradient-to-r from-[#0047FF] to-[#00D2FF] rounded-full w-0" data-progress="95%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- App Development -->
+                    <div>
+                        <div class="flex justify-between text-sm mb-2 font-medium">
+                            <span class="text-white">App Development (Android, Flutter)</span>
+                            <span class="text-gray-400">90%</span>
+                        </div>
+                        <div class="w-full h-2 bg-white/5 border border-white/10 rounded-full overflow-hidden">
+                            <div class="skill-progress-bar h-full bg-gradient-to-r from-[#00D2FF] to-[#10B981] rounded-full w-0" data-progress="90%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Backend & Cloud Infrastructure -->
+                    <div>
+                        <div class="flex justify-between text-sm mb-2 font-medium">
+                            <span class="text-white">Backend & Cloud (Firebase, SQL/NoSQL, Railway, AWS)</span>
+                            <span class="text-gray-400">85%</span>
+                        </div>
+                        <div class="w-full h-2 bg-white/5 border border-white/10 rounded-full overflow-hidden">
+                            <div class="skill-progress-bar h-full bg-gradient-to-r from-[#10B981] to-[#0047FF] rounded-full w-0" data-progress="85%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Business & Strategy -->
+                    <div>
+                        <div class="flex justify-between text-sm mb-2 font-medium">
+                            <span class="text-white">Business (Analytics, Accounting, Consultancy)</span>
+                            <span class="text-gray-400">90%</span>
+                        </div>
+                        <div class="w-full h-2 bg-white/5 border border-white/10 rounded-full overflow-hidden">
+                            <div class="skill-progress-bar h-full bg-gradient-to-r from-[#0047FF] to-[#00D2FF] rounded-full w-0" data-progress="90%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Aerospace Engineering -->
+                    <div>
+                        <div class="flex justify-between text-sm mb-2 font-medium">
+                            <span class="text-white">Aerospace (Aerodynamics, Jets, Rockets)</span>
+                            <span class="text-gray-400">80%</span>
+                        </div>
+                        <div class="w-full h-2 bg-white/5 border border-white/10 rounded-full overflow-hidden">
+                            <div class="skill-progress-bar h-full bg-gradient-to-r from-[#10B981] to-[#0047FF] rounded-full w-0" data-progress="80%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Creative Media & Writing -->
+                    <div>
+                        <div class="flex justify-between text-sm mb-2 font-medium">
+                            <span class="text-white">Creative (Poetry, Video/Photo Editing)</span>
+                            <span class="text-gray-400">85%</span>
+                        </div>
+                        <div class="w-full h-2 bg-white/5 border border-white/10 rounded-full overflow-hidden">
+                            <div class="skill-progress-bar h-full bg-gradient-to-r from-[#00D2FF] to-[#10B981] rounded-full w-0" data-progress="85%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="vision" class="relative py-48 overflow-hidden flex items-center">
+        <div class="absolute inset-0 bg-[#030712]/90 z-10"></div>
+        <div class="max-w-5xl mx-auto px-6 text-center z-20 relative">
+            <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-500 max-w-4xl mx-auto leading-tight opacity-0 scale-95 reveal-element">
+                "Using technology to solve India's grassroots challenges and create impact at scale."
+            </h2>
+            <span class="text-xs uppercase tracking-widest text-gray-400 mt-4 block font-semibold">The Mission Matrix</span>
+        </div>
+    </section>
+
+    <section id="contact" class="py-32 relative overflow-hidden">
+        <!-- Ambient Background Glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] max-w-[800px] h-[500px] bg-gradient-to-r from-[#0047FF]/15 via-[#00D2FF]/10 to-[#10B981]/15 rounded-full blur-[140px] pointer-events-none z-0"></div>
+        
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-xs font-semibold tracking-widest text-[#00D2FF] uppercase mb-3 block">INITIATE COLLABORATION</span>
+                <h2 class="text-4xl md:text-6xl font-bold tracking-tight mb-6">Let's Build Something <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] to-[#10B981]">Exceptional.</span></h2>
+                <div class="flex flex-wrap justify-center gap-6 mt-8 text-sm text-gray-300">
+                    <a href="mailto:madhavojha@example.com" class="flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:border-[#00D2FF]/50 hover:bg-white/10 transition-all backdrop-blur-md">
+                        <i class="fa-solid fa-envelope text-[#00D2FF] text-lg"></i> Drop an Email
+                    </a>
+                    <a href="https://wa.me/91934194955" target="_blank" class="flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:border-[#10B981]/50 hover:bg-white/10 transition-all backdrop-blur-md">
+                        <i class="fa-brands fa-whatsapp text-[#10B981] text-lg"></i> +91 934194955
+                    </a>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mt-12">
+                <!-- Info Panel -->
+                <div class="lg:col-span-5 space-y-8 opacity-0 translate-x-[-20px] reveal-element">
+                    <div class="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl shadow-2xl relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#00D2FF]/5 to-[#10B981]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                        <h3 class="text-2xl font-bold mb-4 text-white relative z-10">Direct Comm-Link</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-8 relative z-10">Whether you have a massive vision, a startup pitch, or a grassroots problem to solve—my inbox is always open. Let's engineer the future together.</p>
+                        
+                        <div class="space-y-6 relative z-10">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-2xl bg-[#0047FF]/10 flex items-center justify-center text-[#00D2FF] shrink-0 border border-[#0047FF]/20"><i class="fa-solid fa-location-dot"></i></div>
+                                <div class="pt-1">
+                                    <h4 class="text-sm font-semibold text-white">Base of Operations</h4>
+                                    <p class="text-xs text-gray-400 mt-1 leading-relaxed">Nalanda College of Engineering<br>Chandi, Bihar, India</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-2xl bg-[#10B981]/10 flex items-center justify-center text-[#10B981] shrink-0 border border-[#10B981]/20"><i class="fa-solid fa-bolt"></i></div>
+                                <div class="pt-1">
+                                    <h4 class="text-sm font-semibold text-white">Current Status</h4>
+                                    <p class="text-xs text-gray-400 mt-1 leading-relaxed">Accepting hackathon teams, innovative projects & consultancy roles.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Panel -->
+                <div class="lg:col-span-7">
+                    <form id="contact-form" class="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-10 backdrop-blur-xl space-y-6 opacity-0 translate-y-8 reveal-element shadow-2xl relative overflow-hidden group">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#0047FF] via-[#00D2FF] to-[#10B981]"></div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10 mt-2">
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Your Name</label>
+                                <input type="text" required placeholder="John Doe" class="w-full bg-[#030712]/50 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 transition-all text-sm placeholder:text-gray-600">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Email Address</label>
+                                <input type="email" required placeholder="john@example.com" class="w-full bg-[#030712]/50 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 transition-all text-sm placeholder:text-gray-600">
+                            </div>
+                        </div>
+                        <div class="space-y-2 relative z-10">
+                            <label class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Subject</label>
+                            <input type="text" required placeholder="Project Proposal / Collaboration" class="w-full bg-[#030712]/50 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-[#10B981] focus:ring-1 focus:ring-[#10B981]/50 transition-all text-sm placeholder:text-gray-600">
+                        </div>
+                        <div class="space-y-2 relative z-10">
+                            <label class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Message</label>
+                            <textarea required rows="4" placeholder="Tell me about your vision..." class="w-full bg-[#030712]/50 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-[#0047FF] focus:ring-1 focus:ring-[#0047FF]/50 transition-all text-sm resize-none placeholder:text-gray-600"></textarea>
+                        </div>
+                        <button id="submit-btn" type="submit" class="w-full py-4 mt-2 rounded-xl bg-gradient-to-r from-[#0047FF] via-[#00D2FF] to-[#10B981] font-bold tracking-widest uppercase text-xs text-white hover:shadow-[0_0_25px_rgba(0,210,255,0.4)] transition-all duration-300 relative z-10 hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-3 overflow-hidden">
+                            <span id="btn-text">Transmit Sequence</span> <i id="btn-icon" class="fa-solid fa-paper-plane text-sm"></i>
+                        </button>
+                        <div id="form-success" class="hidden text-center p-4 rounded-xl bg-[#10B981]/10 border border-[#10B981]/30 text-[#10B981] text-sm mt-4 relative z-10">
+                            <i class="fa-solid fa-circle-check mr-2"></i> Message transmitted successfully.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-white/5 bg-[#030712] py-12 text-center text-sm text-gray-500">
+        &copy; 2026 Madhav Ojha. All rights reserved.
+    </footer>
+
+    <script>
+        // Advanced GSAP Animation & Control Logic
+
+        // Preloader Exit Sequence
+        function hideLoader() {
+            const loader = document.getElementById("preloader");
+            if(loader && !loader.classList.contains("loader-hide")) {
+                loader.classList.add("loader-hide");
+                
+                // Animate out
+                gsap.to(loader, { 
+                    y: "-100%", 
+                    opacity: 0, 
+                    duration: 1, 
+                    ease: "power4.inOut",
+                    onComplete: () => { loader.style.display = 'none'; }
+                });
+
+                // Trigger Hero Sequence
+                gsap.fromTo(".hero-fade", 
+                    { opacity: 0, y: 50 },
+                    { opacity: 1, y: 0, duration: 1.2, stagger: 0.2, ease: "elastic.out(1, 0.75)", delay: 0.2 }
+                );
+            }
+        }
+
+        // Window load and safety trigger
+        window.addEventListener("load", hideLoader);
+        setTimeout(hideLoader, 3000); 
+
+        document.addEventListener("DOMContentLoaded", () => {
+            try {
+                // 1. Interactive Custom Cursor
+                const cursor = document.getElementById("custom-cursor");
+                const glow = document.getElementById("cursor-glow");
+                
+                // Track cursor position
+                window.addEventListener("mousemove", (e) => {
+                    if(cursor && glow) {
+                        gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1, opacity: 1 });
+                        gsap.to(glow, { x: e.clientX, y: e.clientY, duration: 0.5, opacity: 1 });
+                    }
+                });
+
+                // Hover states for links and buttons
+                const interactives = document.querySelectorAll("a, button, input, textarea");
+                interactives.forEach(el => {
+                    el.addEventListener("mouseenter", () => {
+                        gsap.to(cursor, { scale: 1.8, backgroundColor: "rgba(0, 210, 255, 0.1)", duration: 0.3 });
+                        gsap.to(glow, { scale: 1.5, opacity: 0.8, duration: 0.3 });
+                    });
+                    el.addEventListener("mouseleave", () => {
+                        gsap.to(cursor, { scale: 1, backgroundColor: "transparent", duration: 0.3 });
+                        gsap.to(glow, { scale: 1, opacity: 1, duration: 0.3 });
+                    });
+                });
+
+                // 2. Dynamic Floating Particles
+                const container = document.getElementById("particles-container");
+                if (container) {
+                    for (let i = 0; i < 30; i++) {
+                        const p = document.createElement("div");
+                        p.classList.add("particle-element");
+                        p.style.width = p.style.height = (Math.random() * 4 + 2) + 'px';
+                        p.style.left = Math.random() * 100 + '%';
+                        p.style.top = Math.random() * 100 + '%';
+                        p.style.opacity = Math.random() * 0.4 + 0.1;
+                        container.appendChild(p);
+
+                        // Continuous floating animation
+                        gsap.to(p, {
+                            x: `random(-150, 150)`,
+                            y: `random(-150, 150)`,
+                            duration: `random(10, 25)`,
+                            repeat: -1,
+                            yoyo: true,
+                            ease: "sine.inOut"
+                        });
+                    }
+                }
+
+                // 3. Cinematic Scroll Reveals
+                const targets = document.querySelectorAll(".reveal-element");
+                targets.forEach(el => {
+                    gsap.fromTo(el, 
+                        { opacity: 0, y: 60, scale: 0.95 },
+                        { 
+                            opacity: 1, y: 0, scale: 1, 
+                            duration: 1, 
+                            ease: "power3.out", 
+                            scrollTrigger: { 
+                                trigger: el, 
+                                start: "top 85%",
+                                toggleActions: "play none none reverse" 
+                            } 
+                        }
+                    );
+                });
+
+                // 4. Elastic Skill Bars Progression
+                const bars = document.querySelectorAll(".skill-progress-bar");
+                bars.forEach(b => {
+                    gsap.fromTo(b, 
+                        { width: "0%" },
+                        { 
+                            width: b.getAttribute("data-progress"), 
+                            duration: 1.5, 
+                            ease: "elastic.out(1, 0.6)", 
+                            scrollTrigger: { 
+                                trigger: b.parentElement, 
+                                start: "top 90%" 
+                            } 
+                        }
+                    );
+                });
+
+                // 5. 3D Tilt Hover Engine for Cards
+                const cards = document.querySelectorAll(".project-card");
+                cards.forEach(c => {
+                    c.addEventListener("mousemove", (e) => {
+                        const r = c.getBoundingClientRect();
+                        const x = e.clientX - r.left - (r.width/2);
+                        const y = e.clientY - r.top - (r.height/2);
+                        gsap.to(c, { 
+                            rotateY: x / 15, 
+                            rotateX: -y / 15, 
+                            duration: 0.3, 
+                            ease: "power2.out", 
+                            transformPerspective: 1000 
+                        });
+                    });
+                    c.addEventListener("mouseleave", () => { 
+                        gsap.to(c, { rotateY: 0, rotateX: 0, duration: 0.5, ease: "power2.out" }); 
+                    });
+                });
+
+                // Navbar Blur Effect on Scroll
+                const navbar = document.getElementById("navbar");
+                window.addEventListener("scroll", () => {
+                    if (window.scrollY > 50) {
+                        navbar.classList.add("nav-scrolled");
+                    } else {
+                        navbar.classList.remove("nav-scrolled");
+                    }
+                });
+
+            } catch (err) {
+                console.log("Animation systems error handled.");
+                document.querySelectorAll(".hero-fade, .reveal-element").forEach(el => { el.style.opacity = "1"; el.style.transform = "none"; });
+                document.querySelectorAll(".skill-progress-bar").forEach(b => b.style.width = b.getAttribute("data-progress"));
+            }
+        });
+    </script>
+</body>
+</html>
