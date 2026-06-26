@@ -1,0 +1,54 @@
+/* Custom Global Transitions and Interactive Element Tweaks */
+html {
+    scroll-behavior: smooth;
+    background-color: #030712;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Interactive Cursor Element Styles */
+#custom-cursor {
+    mix-blend-mode: difference;
+    transition: transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+}
+
+/* Glassmorphic Navbar States Configuration */
+.nav-scrolled {
+    background-color: rgba(3, 7, 18, 0.4);
+    border-color: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(24px) saturate(180%);
+}
+
+/* Custom Floating Matrix Particle Construction */
+.particle-element {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00D2FF 0%, #0047FF 100%);
+    pointer-events: none;
+    will-change: transform, opacity;
+}
+
+/* 3D Transform Properties Configuration for Cards */
+.project-card {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    will-change: transform, border-color, box-shadow;
+}
+
+/* Native UI Scrollbar Override rules */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #030712;
+}
+::-webkit-scrollbar-thumb {
+    background: #1f2937;
+    border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #00D2FF;
+}
