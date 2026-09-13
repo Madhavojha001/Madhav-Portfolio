@@ -1,0 +1,11 @@
+.DS_Store
+Thumbs.db
+.firebase/
+.vercel/
+node_modules/
+*.log
+
+# Old upload/duplicate folders that should not be deployed
+.tmp.driveupload/
+assests/
+Madhav Portfolio/
