@@ -434,6 +434,11 @@ blockquote {
   letter-spacing: -0.03em;
 }
 
+.hero-proof .hero-proof-word {
+  font-size: 0.92rem;
+  letter-spacing: -0.025em;
+}
+
 .hero-proof span {
   color: var(--quiet);
   font-size: 0.72rem;
@@ -1017,6 +1022,156 @@ blockquote {
 
 .proof-section .eyebrow {
   color: var(--amber);
+}
+
+.competition-spotlights {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.competition-spotlight {
+  position: relative;
+  display: flex;
+  min-height: 360px;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: clamp(26px, 3.4vw, 42px);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 22px 65px rgba(0, 0, 0, 0.24);
+  isolation: isolate;
+}
+
+.competition-spotlight::before {
+  position: absolute;
+  top: -90px;
+  right: -42px;
+  z-index: -1;
+  width: 250px;
+  height: 250px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  content: "";
+}
+
+.competition-spotlight::after {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  content: "";
+}
+
+.competition-spotlight--sih {
+  background: #111d29;
+}
+
+.competition-spotlight--sih::after {
+  background:
+    radial-gradient(circle at 92% 8%, rgba(243, 170, 98, 0.2), transparent 38%),
+    linear-gradient(145deg, rgba(243, 170, 98, 0.065), transparent 52%);
+}
+
+.competition-spotlight--iit {
+  background: #0b1a27;
+}
+
+.competition-spotlight--iit::after {
+  background:
+    radial-gradient(circle at 92% 8%, rgba(126, 230, 242, 0.18), transparent 38%),
+    linear-gradient(145deg, rgba(94, 157, 255, 0.075), transparent 52%);
+}
+
+.competition-spotlight-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 50px;
+}
+
+.competition-number {
+  display: grid;
+  width: 39px;
+  height: 39px;
+  place-items: center;
+  color: #07111f;
+  background: var(--amber);
+  border-radius: 50%;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.competition-spotlight--iit .competition-number {
+  background: var(--cyan);
+}
+
+.competition-spotlight-top small {
+  color: #98a9b9;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.competition-spotlight-copy > p {
+  margin-bottom: 4px;
+  color: #aebbc8;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.competition-spotlight-copy > strong {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--amber);
+  font-size: clamp(2.6rem, 5.2vw, 4.8rem);
+  letter-spacing: -0.075em;
+  line-height: 0.98;
+}
+
+.competition-spotlight--iit .competition-spotlight-copy > strong {
+  color: var(--cyan);
+  font-size: clamp(2.25rem, 4.4vw, 4rem);
+}
+
+.competition-spotlight-copy h3 {
+  margin: 7px 0 14px;
+  color: #f1f5f7;
+  font-size: clamp(1.05rem, 2vw, 1.38rem);
+  letter-spacing: -0.035em;
+}
+
+.competition-spotlight-copy > span {
+  display: block;
+  max-width: 580px;
+  color: var(--muted);
+  font-size: 0.79rem;
+  line-height: 1.65;
+}
+
+.competition-spotlight footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 28px;
+}
+
+.competition-spotlight footer span {
+  padding: 5px 9px;
+  color: #9cabb9;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.025);
+  border-radius: 999px;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
 }
 
 .proof-summary {
@@ -2011,6 +2166,14 @@ blockquote {
 
   .project-grid {
     grid-template-columns: 1fr;
+  }
+
+  .competition-spotlights {
+    grid-template-columns: 1fr;
+  }
+
+  .competition-spotlight {
+    min-height: 330px;
   }
 
   .proof-summary {

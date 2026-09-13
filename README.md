@@ -5,6 +5,7 @@ A lightweight, responsive founder portfolio built with semantic HTML, modern CSS
 ## What is included
 
 - Premium responsive design for mobile, tablet and desktop
+- Featured competition spotlights for SIH Internal Hackathon 1st Rank and IIT Kharagpur Semifinalist
 - Selected projects with honest stage labels and a working FindVault link
 - 34 carefully cropped certificate and award visuals
 - Filterable achievement gallery with keyboard-friendly lightbox
